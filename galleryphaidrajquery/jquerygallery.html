@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" dir="ltr" lang="it-IT">
+	<head>
+		<title>Gallery phaidra simple get </title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+
+			body{margin:10px 0;padding:0;text-align:center;background-color:#000000;color:#000000;}
+			div#contenitore{margin:0 auto;width:5000px;height:10000px;background-color:#ffffff;overflow:hidden;}
+			
+			
+			
+			div{width:600px;height:300px;}
+		</style>
+
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('div#contenitore div').click(function () { 
+				if ($(this).is(":last-child")) {
+					$(this).fadeOut(200, function() {$("div#contenitore div:first").fadeIn( 200);});
+				}else{
+					$(this).fadeOut(200, function() {$(this).next().fadeIn( 200);});
+				}
+			});
+		});
+		</script>
+		
+		
+		
+		
+		
+	</head>
+	<body>
+	<div id="contenitore">
+	<div><img src="https://fc.cab.unipd.it/fedora/get/o:59367/bdef:Content/get" alt="Immagine 1" /></div>
+	<div><img src="https://fc.cab.unipd.it/fedora/get/o:59369/bdef:Content/get" alt="Immagine 2" /></div>
+	
+	
+	</div>
+	</body>
+</html>
