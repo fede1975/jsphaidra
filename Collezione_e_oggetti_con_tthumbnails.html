@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="https://phaidra-static.cab.unipd.it/stylesheets/css/unipdstyle.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<ul onmouseover="if(getElementById('login')){add_class('login','transparent')}; if(getElementById('lang')){add_class('lang','transparent')}; if(getElementById('search-detail')){add_class('search-detail','transparent')};">
+</head>
+
+o:<input type='text' name='codice' id='codice'/><br />
+
+<button  onClick='mostra()' > <a class="phaidra-logo"  title="Phaidra - Code Searcher"><img src="https://phaidra.cab.unipd.it/static/padova/img/logos/phaidra-logo.png" alt="Phaidra - Collezioni digitali">
+		
+		</a> </button><br />
+
+
+<script type="text/javascript">
+
+
+function mostra() {
+	var testo= $('#codice').val();
+	console.log(testo);
+	$(document).ready(function(){
+	  var url = "https://phaidradev.cab.unipd.it/api/collection/o:"+testo+"/members";
+	  $.getJSON(url, function(response){
+		console.log(response.metadata.members);
+		$.each(response.metadata.members, function(a,campo){
+		  console.log(campo);
+		  var myId = campo.pid.substring(2);
+		  $(".members").append('<div><img src="https://fc.cab.unipd.it/fedora/objects/o:'+myId+'/methods/bdef:Asset/getThumbnail"></img></div><div id='+myId+' ></div><hr>');
+		  var myPid=campo.pid;
+		  $.getJSON("https://phaidradev.cab.unipd.it/api/object/"+myPid+"/dc", function(res2){
+			var testo='';
+			$.each(res2.metadata.dc, function(a,field){
+				testo+=field.xmlname + ": " + field.ui_value + "<br />";
+			});
+			$("#"+myId).html(testo);
+               });
+
+		});
+	  });
+	});
+}
+
+
+
+
+
+
+
+</script>
+</script>
+<body>
+<div class="members"></div>
+<br />
+
+</body>
+</html>
