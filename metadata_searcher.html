@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
+
+
+
+
 
 <link rel="stylesheet" type="text/css" href="https://phaidra-static.cab.unipd.it/stylesheets/css/unipdstyle.css">
 
@@ -15,35 +17,46 @@ o:<input type='text' name='codice' id='codice'/><br />
 		</a> </button><br />
 
 
-<script type="text/javascript">
 
+<title>Test get metadata API</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
 
 function mostra() {
 	var testo= $('#codice').val();
 	console.log(testo);
-	$(document).ready(function(){
-	  var url = "https://phaidradev.cab.unipd.it/api/object/o:"+testo+"/metadata";
-	  $.getJSON(url, function(response){
-		console.log(response.metadata.members);
-		$.each(response.metadata.members, function(a,campo){
-		  console.log(campo);
-		  $(".members").append(campo.pid);
+
+$(document).ready(function(){
+  var url = "https://phaidradev.cab.unipd.it/api/object/o:"+testo+"/metadata";
+  $.getJSON(url, function(response){
+    console.log(response.metadata.uwmetadata);
+    $.each(response.metadata.uwmetadata, function(i, field){
+		console.log(field);
+	     $.each(field.children, function(i, child){
+
+		    $("#dc").append(child.xmlname + ": " + child.ui_value + "<br />");
+			
+			
+			
+			
+			
+			
+			
 		});
-	  });
+});
 	});
+});
 }
 
 
 
-</script>
-
 
 
 
 </script>
+</head>
 <body>
-<div class="members"></div>
-<br />
+<div id="dc"></div>
 
 </body>
 </html>
